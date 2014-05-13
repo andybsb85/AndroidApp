@@ -6,10 +6,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 public class UserActivity extends Activity {
 	
@@ -26,7 +26,8 @@ public class UserActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_layout);
-	
+		
+
 		btnSelect = (Button) findViewById(R.id.btnSelect);
 		btnCreate = (Button) findViewById(R.id.btnCreate);
 		btnDelete = (Button) findViewById(R.id.btnDelete);
@@ -39,24 +40,43 @@ public class UserActivity extends Activity {
 		db= new DataBaseHandler(this);
 		
 		
-		btnSelect.setOnClickListener(new OnClickListener() {
+		btnSelect.setOnClickListener(onSelect);
+		btnCreate.setOnClickListener(onCreate);
+		btnDelete.setOnClickListener(onDelete);
+		btnUpdate.setOnClickListener(onUpdate);
 				
-				public void onClick(View v) {
+	
+	}
+	
+		
+		private View.OnClickListener onSelect = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+							
 					name = etName.getText().toString();
 					db.openWritable();
 					user = db.getUser(name);
 					db.close();
-					etEmail.setText(user.getEmail());
-					etPassword.setText(user.getPassword());
-					etCPassword.setText(user.getcPassword());
-					Log.d("selected", "user selected"+user.getId());
-					Toast.makeText(v.getContext(), " User Selected", 1).show();
-					
-				}
-				
-		});
+					if(user == null)
+					{
+						return;
+					}
+					else
+					{
+						etName.setText(user.getName());
+						etEmail.setText(user.getEmail());
+						etPassword.setText(user.getPassword());
+						etCPassword.setText(user.getcPassword());
+						Log.d("selected", "user selected"+user.getId());
+						Toast.makeText(v.getContext(), " User Selected", 1).show();
+					}
+			}
+		};
+	
 		
-		btnCreate.setOnClickListener(new OnClickListener() {
+		private View.OnClickListener onCreate = new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				name = etName.getText().toString();
@@ -69,23 +89,23 @@ public class UserActivity extends Activity {
 				db.close();
 				Toast.makeText(v.getContext(), " User Inserted", 1).show();
 			}
-		});
+		};
 		
-		btnDelete.setOnClickListener(new OnClickListener() {
+		private View.OnClickListener onDelete= new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				name = etName.getText().toString();
 				db.openWritable();
-				user = db.getUser(name);
+				db.deleteUser(user);
 				db.close();
 				Log.d("selected", "user selected"+user.getId());
 				Toast.makeText(v.getContext(), " User Deleted", 1).show();
 			}
-		});
+		};
 
-		btnUpdate.setOnClickListener(new OnClickListener() {
+		private View.OnClickListener onUpdate = new View.OnClickListener() {
 	
 			@Override
 			public void onClick(View v) {
@@ -104,7 +124,8 @@ public class UserActivity extends Activity {
 				db.close();
 				Toast.makeText(v.getContext(), "User Updated", 1).show();
 			}
-		});
-			}
-
+		};
+		
 }
+	
+

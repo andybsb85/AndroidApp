@@ -50,7 +50,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public static final String COLUMN_EMAIL = "email";
 	public static final String COLUMN_PASSWORD = "password";
 	public static final String COLUMN_CPASSWORD = "c_password";
-	
 
 	// Attraction_type
 	public static final int PLACE_CODE = 1;
@@ -90,13 +89,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 			+ COLUMN_DESCRIPTION + " TEXT," + COLUMN_OPENINGHOURS + " TEXT,"
 			+ COLUMN_ADDRESS + " TEXT," + COLUMN_POSTCODE + " TEXT,"
 			+ COLUMN_WEBSITE + " TEXT," + COLUMN_PHONE + " TEXT);";
-	
-	private static final String DATABASE_USERS = "CREATE TABLE "
-			+ TABLE_USERS + "(" + KEY_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," 
-			+ COLUMN_NAME + " TEXT NOT NULL," 
-			+ COLUMN_EMAIL + " TEXT NOT NULL," 
-			+ COLUMN_PASSWORD + " TEXT NOT NULL," 
+
+	private static final String DATABASE_USERS = "CREATE TABLE " + TABLE_USERS
+			+ "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			+ COLUMN_NAME + " TEXT NOT NULL," + COLUMN_EMAIL
+			+ " TEXT NOT NULL," + COLUMN_PASSWORD + " TEXT NOT NULL,"
 			+ COLUMN_CPASSWORD + " TEXT NOT NULL);";
 
 	public DataBaseHandler(Context context) {
@@ -108,7 +105,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	// Create Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		this.db=db;
+		this.db = db;
 		Log.d("onCreate ", "onCreate 1 ...");
 		db.execSQL(DATABASE_COUNTRY);
 		db.execSQL(DATABASE_REGION);
@@ -122,13 +119,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 	SQLiteDatabase db;
 
-	public void openWritable(){
-    	
+	public void openWritable() {
 
-	db= this.getWritableDatabase();
-    	
-    	
-    }
+		db = this.getWritableDatabase();
+
+	}
 
 	public void openReadeable() {
 		db = this.getReadableDatabase();
@@ -159,10 +154,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// SQLiteDatabase db= this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(DataBaseHandler.COLUMN_NAME, user.getName()); 
-		values.put(DataBaseHandler.COLUMN_EMAIL, user.getEmail()); 
-		values.put(DataBaseHandler.COLUMN_PASSWORD, user.getPassword()); 
-		values.put(DataBaseHandler.COLUMN_CPASSWORD, user.getcPassword()); 
+		values.put(DataBaseHandler.COLUMN_NAME, user.getName());
+		values.put(DataBaseHandler.COLUMN_EMAIL, user.getEmail());
+		values.put(DataBaseHandler.COLUMN_PASSWORD, user.getPassword());
+		values.put(DataBaseHandler.COLUMN_CPASSWORD, user.getcPassword());
 		// Inserting Row
 		db.insert(DataBaseHandler.TABLE_USERS, null, values);
 		// db.close(); // Closing database connection
@@ -178,7 +173,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		values.put(DataBaseHandler.COLUMN_DESCRIPTION, country.getDescription()); // Country
 																					// Summary
 
-		
 		// Inserting Row
 		db.insert(DataBaseHandler.TABLE_COUNTRY, null, values);
 		// db.close(); // Closing database connection
@@ -189,10 +183,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// SQLiteDatabase db= this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(DataBaseHandler.KEY_COUNTRY_ID, region.getCountryId()); // Region country id
+		values.put(DataBaseHandler.KEY_COUNTRY_ID, region.getCountryId()); // Region
+																			// country
+																			// id
 		values.put(DataBaseHandler.KEY_NAME, region.getName()); // Region Name
-		values.put(DataBaseHandler.COLUMN_IMAGE, region.getImage()); // Region image
-		values.put(DataBaseHandler.COLUMN_DESCRIPTION, region.getDescription()); // Region Summary
+		values.put(DataBaseHandler.COLUMN_IMAGE, region.getImage()); // Region
+																		// image
+		values.put(DataBaseHandler.COLUMN_DESCRIPTION, region.getDescription()); // Region
+																					// Summary
 
 		// Inserting Row
 		db.insert(DataBaseHandler.TABLE_REGION, null, values);
@@ -231,57 +229,67 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		values.put(DataBaseHandler.KEY_NAME, attraction.getName()); // Attraction
 		values.put(DataBaseHandler.COLUMN_SUMMARY, attraction.getSummary()); // Attraction
 		values.put(DataBaseHandler.COLUMN_IMAGE, attraction.getImage()); // Attraction
-		values.put(DataBaseHandler.COLUMN_DESCRIPTION, attraction.getDescription()); // Attraction Summary
-		values.put(DataBaseHandler.COLUMN_OPENINGHOURS,	attraction.getOpeninghours()); // Attraction Description
+		values.put(DataBaseHandler.COLUMN_DESCRIPTION,
+				attraction.getDescription()); // Attraction Summary
+		values.put(DataBaseHandler.COLUMN_OPENINGHOURS,
+				attraction.getOpeninghours()); // Attraction Description
 		values.put(DataBaseHandler.COLUMN_ADDRESS, attraction.getAddress()); // Attraction
 		values.put(DataBaseHandler.COLUMN_POSTCODE, attraction.getPostcode()); // Attraction
 		values.put(DataBaseHandler.COLUMN_WEBSITE, attraction.getWebsite()); // Attraction
 		values.put(DataBaseHandler.COLUMN_PHONE, attraction.getPhone()); // Attraction
-																		
+
 		// Inserting Row
 		db.insert(DataBaseHandler.TABLE_ATTRACTIONS, null, values);
 		// db.close(); // Closing database connection
 	}
 
-	
-	
-	/*===============================Getting single objects=================================== */
+	/*
+	 * ===============================Getting single
+	 * objects===================================
+	 */
 
 	// Getting single country
-	
-	
+
 	public User getUser(String name) {
 		// SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(DataBaseHandler.TABLE_USERS, new String[] {
-				DataBaseHandler.KEY_ID, 
-				DataBaseHandler.COLUMN_NAME,
-				DataBaseHandler.COLUMN_EMAIL,
-				DataBaseHandler.COLUMN_PASSWORD,
+				DataBaseHandler.KEY_ID, DataBaseHandler.COLUMN_NAME,
+				DataBaseHandler.COLUMN_EMAIL, DataBaseHandler.COLUMN_PASSWORD,
 				DataBaseHandler.COLUMN_CPASSWORD }, DataBaseHandler.COLUMN_NAME
-				+ "=?", new String[] { String.valueOf(name) }, null, null, null,
-				null);
-		if (cursor != null)
+				+ "=?", new String[] { String.valueOf(name) }, null, null,
+				null, null);
+		if (cursor != null) {
+			
+			if (cursor.getCount() <= 0) {
+				
+				return null;
+			}
 			cursor.moveToFirst();
+			User user = new User(cursor.getInt(cursor
+					.getColumnIndex(DataBaseHandler.KEY_ID)),
+					cursor.getString(cursor
+							.getColumnIndex(DataBaseHandler.COLUMN_NAME)),
+					cursor.getString(cursor
+							.getColumnIndex(DataBaseHandler.COLUMN_EMAIL)),
+					cursor.getString(cursor
+							.getColumnIndex(DataBaseHandler.COLUMN_PASSWORD)),
+					cursor.getString(cursor
+							.getColumnIndex(DataBaseHandler.COLUMN_CPASSWORD)));
 
-		User user = new User(
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_NAME)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_EMAIL)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_PASSWORD)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_CPASSWORD)));
-
-		// return country
-		return user;
+			return user;
+		} else {
+			Log.d("yser query", "2");
+			return null;
+		}
 	}
 
-	
 	// Getting single country
 	public Country getCountry(int id) {
 		// SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(DataBaseHandler.TABLE_COUNTRY, new String[] {
-				DataBaseHandler.KEY_ID, 
-				DataBaseHandler.KEY_NAME,
+				DataBaseHandler.KEY_ID, DataBaseHandler.KEY_NAME,
 				DataBaseHandler.COLUMN_IMAGE,
 				DataBaseHandler.COLUMN_DESCRIPTION }, DataBaseHandler.KEY_ID
 				+ "=?", new String[] { String.valueOf(id) }, null, null, null,
@@ -289,10 +297,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Country country = new Country(
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_NAME)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
+		Country country = new Country(cursor.getString(cursor
+				.getColumnIndex(DataBaseHandler.KEY_NAME)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
 
 		// return country
 		return country;
@@ -303,21 +313,22 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// // SQLiteDatabase db= this.getWritableDatabase();
 
 		Cursor cursor = db.query(DataBaseHandler.TABLE_REGION, new String[] {
-				DataBaseHandler.KEY_ID,
-				DataBaseHandler.KEY_COUNTRY_ID,
-				DataBaseHandler.KEY_NAME, 
-				DataBaseHandler.COLUMN_IMAGE,
+				DataBaseHandler.KEY_ID, DataBaseHandler.KEY_COUNTRY_ID,
+				DataBaseHandler.KEY_NAME, DataBaseHandler.COLUMN_IMAGE,
 				DataBaseHandler.COLUMN_DESCRIPTION }, DataBaseHandler.KEY_ID
 				+ "=?", new String[] { String.valueOf(id) }, null, null, null,
 				null);
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Region region = new Region(
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_NAME)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
+		Region region = new Region(cursor.getInt(cursor
+				.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.KEY_NAME)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
 
 		// return region
 		return region;
@@ -328,10 +339,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// // SQLiteDatabase db= this.getWritableDatabase();
 
 		Cursor cursor = db.query(DataBaseHandler.TABLE_CITY, new String[] {
-				DataBaseHandler.KEY_ID, 
-				DataBaseHandler.KEY_COUNTRY_ID,
-				DataBaseHandler.KEY_REGION_ID, 
-				DataBaseHandler.KEY_NAME,
+				DataBaseHandler.KEY_ID, DataBaseHandler.KEY_COUNTRY_ID,
+				DataBaseHandler.KEY_REGION_ID, DataBaseHandler.KEY_NAME,
 				DataBaseHandler.COLUMN_IMAGE,
 				DataBaseHandler.COLUMN_DESCRIPTION }, DataBaseHandler.KEY_ID
 				+ "=?", new String[] { String.valueOf(id) }, null, null, null,
@@ -339,13 +348,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		City city = new City(
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)), 
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_REGION_ID)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_NAME)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
-
+		City city = new City(cursor.getInt(cursor
+				.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)),
+				cursor.getInt(cursor
+						.getColumnIndex(DataBaseHandler.KEY_REGION_ID)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.KEY_NAME)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)));
 
 		// return city
 		return city;
@@ -355,12 +367,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 	public Attraction getAttraction(int id) {
 		// // SQLiteDatabase db= this.getWritableDatabase();
 
-		Cursor cursor = db.query(DataBaseHandler.TABLE_ATTRACTIONS,	new String[] {
-						DataBaseHandler.KEY_ID,
+		Cursor cursor = db.query(DataBaseHandler.TABLE_ATTRACTIONS,
+				new String[] { DataBaseHandler.KEY_ID,
 						DataBaseHandler.KEY_COUNTRY_ID,
 						DataBaseHandler.KEY_REGION_ID,
-						DataBaseHandler.KEY_CITY_ID,
-						DataBaseHandler.KEY_NAME,
+						DataBaseHandler.KEY_CITY_ID, DataBaseHandler.KEY_NAME,
 						DataBaseHandler.KEY_TYPE,
 						DataBaseHandler.COLUMN_SUMMARY,
 						DataBaseHandler.COLUMN_IMAGE,
@@ -375,27 +386,40 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Attraction attraction = new Attraction(
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)),
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_REGION_ID)), 
-				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_CITY_ID)), 
+		Attraction attraction = new Attraction(cursor.getInt(cursor
+				.getColumnIndex(DataBaseHandler.KEY_COUNTRY_ID)),
+				cursor.getInt(cursor
+						.getColumnIndex(DataBaseHandler.KEY_REGION_ID)),
+				cursor.getInt(cursor
+						.getColumnIndex(DataBaseHandler.KEY_CITY_ID)),
 				cursor.getInt(cursor.getColumnIndex(DataBaseHandler.KEY_TYPE)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_NAME)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_SUMMARY)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_OPENINGHOURS)), 
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_ADDRESS)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_POSTCODE)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_WEBSITE)),
-				cursor.getString(cursor.getColumnIndex(DataBaseHandler.COLUMN_PHONE)));
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.KEY_NAME)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_SUMMARY)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_IMAGE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_DESCRIPTION)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_OPENINGHOURS)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_ADDRESS)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_POSTCODE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_WEBSITE)),
+				cursor.getString(cursor
+						.getColumnIndex(DataBaseHandler.COLUMN_PHONE)));
 
 		// return attraction
 		return attraction;
 	}
 
-	
-	/* ===============================Getting all objects===================================*/
+	/*
+	 * ===============================Getting all
+	 * objects===================================
+	 */
 
 	// Getting All countries
 	public ArrayList<Country> getAllCountry() {
@@ -627,15 +651,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// return contact list
 		return attractionList;
 	}
-	
-	
-	//Getting all attractions by city and type
-	
-	public ArrayList<Attraction> getAttractionsByType(long cityId, int type ) {
+
+	// Getting all attractions by city and type
+
+	public ArrayList<Attraction> getAttractionsByType(long cityId, int type) {
 		ArrayList<Attraction> attractionList = new ArrayList<Attraction>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM " + DataBaseHandler.TABLE_ATTRACTIONS
-				+ " WHERE " + DataBaseHandler.KEY_CITY_ID + " = " + cityId + " AND " 
+		String selectQuery = "SELECT  * FROM "
+				+ DataBaseHandler.TABLE_ATTRACTIONS + " WHERE "
+				+ DataBaseHandler.KEY_CITY_ID + " = " + cityId + " AND "
 				+ DataBaseHandler.KEY_TYPE + " = " + type;
 
 		// SQLiteDatabase db = this.getWritableDatabase();
@@ -683,25 +707,26 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		return attractionList;
 	}
 
-	
-	/* ===============================Updating single objects=================================== */
+	/*
+	 * ===============================Updating single
+	 * objects===================================
+	 */
 	// Updating single user
-		public int updateUser(User user) {
-			// SQLiteDatabase db = this.getWritableDatabase();
+	public int updateUser(User user) {
+		// SQLiteDatabase db = this.getWritableDatabase();
 
-			ContentValues values = new ContentValues();
-			values.put(DataBaseHandler.COLUMN_NAME, user.getName());
-			values.put(DataBaseHandler.COLUMN_EMAIL, user.getEmail());
-			values.put(DataBaseHandler.COLUMN_PASSWORD, user.getPassword());
-			values.put(DataBaseHandler.COLUMN_CPASSWORD, user.getcPassword());
+		ContentValues values = new ContentValues();
+		values.put(DataBaseHandler.COLUMN_NAME, user.getName());
+		values.put(DataBaseHandler.COLUMN_EMAIL, user.getEmail());
+		values.put(DataBaseHandler.COLUMN_PASSWORD, user.getPassword());
+		values.put(DataBaseHandler.COLUMN_CPASSWORD, user.getcPassword());
 
-			// updating row
-			return db.update(DataBaseHandler.TABLE_USERS, values,
-					DataBaseHandler.KEY_ID + " = ?",
-					new String[] { String.valueOf(user.getId()) });
-		}
-		
-		
+		// updating row
+		return db.update(DataBaseHandler.TABLE_USERS, values,
+				DataBaseHandler.KEY_ID + " = ?",
+				new String[] { String.valueOf(user.getId()) });
+	}
+
 	// Updating single country
 	public int updateCountry(Country country) {
 		// SQLiteDatabase db = this.getWritableDatabase();
@@ -776,18 +801,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(attraction.getId()) });
 	}
 
-	
+	/*
+	 * ===============================Deleting single
+	 * objects===================================
+	 */
 
-	/* ===============================Deleting single objects===================================*/
-	
 	// Deleting single user
-		public void deleteUser(User user) {
-			// SQLiteDatabase db = this.getWritableDatabase();
-			db.delete(DataBaseHandler.TABLE_USERS, DataBaseHandler.KEY_ID
-					+ " = ?", new String[] { String.valueOf(user.getId()) });
-			// db.close();
-		}
-	
+	public void deleteUser(User user) {
+		// SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(DataBaseHandler.TABLE_USERS, DataBaseHandler.KEY_ID + " = ?",
+				new String[] { String.valueOf(user.getId()) });
+		// db.close();
+	}
+
 	// Deleting single country
 	public void deleteCountry(Country country) {
 		// SQLiteDatabase db = this.getWritableDatabase();
@@ -821,10 +847,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		// db.close();
 	}
 
-	
+	/*
+	 * ===============================Getting objects
+	 * count===================================
+	 */
 
-	/* ===============================Getting objects count=================================== */
-	
 	// Getting countries Count
 	public int getCountriesCount() {
 		String countQuery = "SELECT  * FROM " + DataBaseHandler.TABLE_COUNTRY;
@@ -870,5 +897,4 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 		return cursor.getCount();
 	}
 
-	
 }
