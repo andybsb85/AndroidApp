@@ -7,6 +7,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class TypeAttractionActivity extends ListActivity {
 		}
 		// get data via the key
 		cityId = extras.getLong("cityid", 0);
+		Log.d("city","city"+cityId);
 		//Toast.makeText(this, "city " + cityId, Toast.LENGTH_LONG).show();
 		
 
@@ -123,8 +125,13 @@ public class TypeAttractionActivity extends ListActivity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					int type= option.getType();
+					Log.d("type","type "+type);
 					//Toast.makeText(getApplicationContext(), "You selected "+ option.getType(),
 						//	Toast.LENGTH_SHORT).show();
+					Log.d("class-----", "before");
+					//Class clss = AttractionActivity.class;
+					//Log.d("class-----", clss.getName());
+					
 					Intent intent = new Intent(getApplicationContext(), AttractionActivity.class);
 					intent.putExtra("type", type);
 					intent.putExtra("cityid", cityId);
@@ -144,5 +151,4 @@ public class TypeAttractionActivity extends ListActivity {
 			return row;
 		}
 	}
-
 }

@@ -1,18 +1,16 @@
 package cct.mobapp.c7141384app;
 
-
 import java.util.ArrayList;
 
-import cct.mobapp.c7141384app.database.DataBaseHandler;
-import cct.mobapp.c7141384app.model.Attraction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.content.Intent;
 import android.util.Log;
+import cct.mobapp.c7141384app.database.DataBaseHandler;
+import cct.mobapp.c7141384app.model.Attraction;
 
+public class AttractionActivity extends FragmentActivity implements ChangeListListener {
 
-	public class AttractionActivity extends FragmentActivity implements ChangeListListener{
-		
     public long cityId;
     public int type;
     public ArrayList<Attraction> attractions;
@@ -109,5 +107,6 @@ import android.util.Log;
 		
 		
 	}
+
 
 }
