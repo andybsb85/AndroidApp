@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ecuador Tourism</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="food">Food and Drink</string>
+    <string name="attractions">Attractions</string>
+    <string name="attraction_summary">attraction_summary</string>
+    <string name="attraction_name">attraction_name</string>
+    <string name="infogeneral">General Information</string>
+    <string name="categories">Visit Attractions</string>
+    <string name="map">Map of Ecuador</string>
+    <string name="settings">settings</string>
+    <string name="countryname">countryName</string>
+    <string name="attraction">Attraction</string>
+    <string name="AttractionName">Attraction Name</string>
+    <string name="textview">TextView</string>
+    <string name="description">description</string>
+    <string name="openninghours">openningHours</string>
+    <string name="website">website</string>
+    <string name="listcategories">Region/Cities</string>
+    <string name="typeattraction">Type of Attraction</string>
+    <string name="listattractions">List of Attractions</string>
+    <string name="ecuadormap">Map of Ecuador</string>
+    <string name="welcome">Ecuador Tourism and Travel</string>
+    <string name="address">address</string>
+    <string name="user">user</string>
+    <string name="username">name</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="cpassword">cpassword</string>
+    <string name="create">create</string>
+    <string name="delete">delete</string>
+    <string name="update">update</string>
+    <string name="select">select</string>
+
+</resources>

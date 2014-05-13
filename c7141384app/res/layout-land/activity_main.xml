@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AttractionActivity" 
+    style = "@style/boxlayout" >
+  
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="cct.mobapp.c7141384app.AttractionListFragment"
+        android:layout_width="124dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.08" 
+        tools:layout="@layout/linklist_layout" />
+        
+
+    <FrameLayout
+        android:id="@+id/fragPage"
+        android:layout_width="249dp"
+        android:layout_height="223dp"
+        android:layout_weight="0.40"
+        tools:layout="@layout/detail_layout" />
+
+</LinearLayout>

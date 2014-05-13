@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    style = "@style/boxlayout" >
+
+    <TextView
+        android:id="@+id/at_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AttractionName" />
+
+    <TextView
+        android:id="@+id/at_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/at_opening_hours"
+        android:layout_below="@+id/at_name"
+        android:layout_marginTop="19dp"
+        android:text="@string/description" />
+
+    <TextView
+        android:id="@+id/at_opening_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/at_name"
+        android:layout_below="@+id/at_description"
+        android:layout_marginTop="28dp"
+        android:text="@string/openninghours" />
+
+    <TextView
+        android:id="@+id/at_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/at_opening_hours"
+        android:layout_below="@+id/at_opening_hours"
+        android:layout_marginTop="26dp"
+        android:text="@string/website" />
+
+    <TextView
+        android:id="@+id/at_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/at_website"
+        android:layout_below="@+id/at_website"
+        android:layout_marginTop="28dp"
+        android:text="@string/address" />
+    
+ </RelativeLayout>
