@@ -49,7 +49,7 @@ public class UserActivity extends Activity {
 					etEmail.setText(user.getEmail());
 					etPassword.setText(user.getPassword());
 					etCPassword.setText(user.getcPassword());
-					Log.d("selected", "user selected");
+					Log.d("selected", "user selected"+user.getId());
 					Toast.makeText(v.getContext(), " User Selected", 1).show();
 					
 				}
@@ -76,9 +76,11 @@ public class UserActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				name = etName.getText().toString();
 				db.openWritable();
-				db.deleteUser(user);
+				user = db.getUser(name);
 				db.close();
+				Log.d("selected", "user selected"+user.getId());
 				Toast.makeText(v.getContext(), " User Deleted", 1).show();
 			}
 		});
@@ -93,8 +95,12 @@ public class UserActivity extends Activity {
 				password = etPassword.getText().toString();
 				cPassword = etCPassword.getText().toString();
 				Log.d("user", "user");
+				user.setName(name);
+				user.setEmail(email);
+				user.setPassword(password);
+				user.setcPassword(cPassword);
 				db.openWritable();
-				db.updateUser( );
+				db.updateUser(user);
 				db.close();
 				Toast.makeText(v.getContext(), "User Updated", 1).show();
 			}

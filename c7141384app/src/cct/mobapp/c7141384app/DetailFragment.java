@@ -34,7 +34,7 @@ public int currentAttractionId;
 		Log.d("SwA", "WVF onCreateView");
 		View v = inflater.inflate(R.layout.detail_layout, container, false);
 		
-		if(Integer.toString(currentAttractionId) != null){
+		if(Integer.toString(currentAttractionId) != null && currentAttraction!=null){
 			
 			//currentAttraction=((AttractionActivity) getActivity()).curAttraction;
 			Log.d("DetailFragment", "attraction:"+ currentAttraction.getName());
